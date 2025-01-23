@@ -6,7 +6,7 @@
         {% csrf_token %}
 
         <div class="login__container">
-            <input type="text" class="login__name" placeholder="UserName.Unique()"
+            <input type="text" class="login__name" placeholder="Имя пользователя"
                 name="{{ form.username.name }}">
             {{ form.username.errors }}
         </div>

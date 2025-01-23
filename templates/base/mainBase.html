@@ -15,18 +15,15 @@
         {% if request.user.is_authenticated %}
             <div class="header__links">
                 <div class=" header__logo">
-                    <img src="{% static 'base/mainBase/logo.png' %}" alt="">
+                    <a href="{% url 'index' %}">
+                        <img src="{% static 'base/mainBase/logo.png' %}" alt="">
+                    </a>
                 </div>
                 <div class="header__link">
                     <a href="{% url 'catalog'%}">Мероприятия</a>
                 </div>
             </div>
             <div class="header__links">
-                <div class="header__link">
-                    <a class="" href="{% url 'logout' %}">
-                        Организация
-                    </a>
-                </div>
                 <div class="header__searchContainer">
                     <!-- <img src="{% static 'base/mainBase/search.svg' %}" alt=""> -->
                     <input class="header__search" type="text" placeholder="Поиск">
@@ -47,10 +44,17 @@
                     {% endif %}
                     </a> 
                 </div>
-            {% else %}
-                <div class="header__link header__logo">
-                    <img src="{% static 'base/mainBase/logo.png' %}" alt="">
+                <div class="header__link" style="margin-left: 10px;">
+                    <a class="" href="{% url 'logout' %}">
+                        Выйти
+                    </a>
                 </div>
+            {% else %}
+                <a href="{% url 'index' %}">
+                    <div class=" header__logo">
+                        <img src="{% static 'base/mainBase/logo.png' %}" alt="">
+                    </div>
+                </a>
                 <div class="header__btns">
                     <a href="{% url 'login' %}">
                         <button class="header__loginBtn btn">Войти</button>
@@ -99,22 +103,19 @@
                         </div>
                     </div>
                     <div class="footer__list">
-                        <div class="footer__subtitle"> &lt; <span>LIST</span> &gt; Преподаватели</div>
+                        <div class="footer__subtitle">Преподаватели</div>
                         <div class="footer__subtitle">Партнёрство</div>
-                        <div class="footer__subtitle">Light Тудэ</div>
                     </div>
                     <div class="footer__list">
-                        <div class="footer__subtitle"> &lt; <span>LIST</span> &gt; Преподаватели</div>
+                        <div class="footer__subtitle">Преподаватели</div>
                         <div class="footer__subtitle">Партнёрство</div>
-                        <div class="footer__subtitle">Состав <span>кгпк</span> </div>
+                        <div class="footer__subtitle">Состав</div>
                     </div>
                     <div class="footer__list">
-                        <div class="footer__subtitle">&lt; <span>LINK</span> &gt; социальные сети &lt;/
-                            <span>Link</span> &gt;
-                        </div>
-                        <div class="footer__subtitle"><span>href</span>=” <span>КГПК</span> II корпус”</div>
-                        <div class="footer__subtitle"><span>href</span>=”informatics & ВТ”</div>
-                        <div class="footer__subtitle"><span>href</span>=”<span>КГПК</span>trajectory””</div>
+                        <div class="footer__subtitle">социальные</div>
+                        <div class="footer__subtitle">2 корпус</div>
+                        <div class="footer__subtitle">Информационные системы & ВТ</div>
+                        <div class="footer__subtitle">Траектория</div>
                     </div>
                     <div class="footer__list">
                         <div class="footer__subtitle">&lt; <span>pretension</span> : <span>Pretension</span> &gt; КНИГА ЖАЛОБ </div>
@@ -138,10 +139,10 @@
                         </div>
                     </div>
                     <div class="footer__link">
-                        © 2024 <span>NULL</span>. Все права защищены.
+                        © 2024 Все права защищены.
                     </div>
                     <div class="footer__link">
-                        MADE IN <span> <a href="https://kg-college.ru/" target="_blank">КГПК</a> </span>
+                        Сделано в <span> <a href="https://kg-college.ru/" target="_blank">КГПК</a> </span>
                     </div>
                     <div class="footer__link">
                         Политика коэнфидициальности

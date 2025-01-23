@@ -771,7 +771,6 @@ main{
 
 .blocks__soft__logo {
     padding: 8px;
-    border: 1px solid #FFD600;
     margin-bottom: 50px;
 }
 
@@ -1183,8 +1182,8 @@ main{
 .eventNav__input {
     background: transparent;
     width: 100%;
-    font-size: 18px;
-    padding-left: 25px;
+    font-size: 16px;
+    /* padding-left: 5px; */
     background-image: url("../../App/static/icons/base/search.svg");
     background-repeat: no-repeat;
     background-size: 20px;
