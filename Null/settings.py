@@ -143,7 +143,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 MY_APPS = [
     'Subject',
     'App',
-    'Task'
+    # 'Task'
 ]
 
 TEMPLATES_URL = '/templates/'
