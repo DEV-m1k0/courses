@@ -14,21 +14,16 @@
     <header class="header container">
         {% if request.user.is_authenticated %}
             <div class="header__links">
-                <a href="{% url 'index' %}">
-                    <div class=" header__logo">
+                <div class=" header__logo">
+                    <a href="{% url 'index' %}">
                         <img src="{% static 'base/mainBase/logo.png' %}" alt="">
-                    </div>
-                </a>
+                    </a>
+                </div>
                 <div class="header__link">
                     <a href="{% url 'catalog'%}">Мероприятия</a>
                 </div>
             </div>
             <div class="header__links">
-                <div class="header__link">
-                    <a class="" href="{% url 'logout' %}">
-                        Организация
-                    </a>
-                </div>
                 <div class="header__searchContainer">
                     <!-- <img src="{% static 'base/mainBase/search.svg' %}" alt=""> -->
                     <input class="header__search" type="text" placeholder="Поиск">
@@ -48,6 +43,11 @@
                         </a>
                     {% endif %}
                     </a> 
+                </div>
+                <div class="header__link" style="margin-left: 10px;">
+                    <a class="" href="{% url 'logout' %}">
+                        Выйти
+                    </a>
                 </div>
             {% else %}
                 <a href="{% url 'index' %}">
