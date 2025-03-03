@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <title>Null</title>
 </head>
-
+    
 <body>
     <header class="header container">
         <div class="header__link header__logo">
@@ -90,7 +90,10 @@
                     </div>
                 </div>
                 <div class="hardSkills__img">
-                    <img src="{% static 'img/code.jpg' %}" alt="">
+                    <video width="530" height="440" controls autoplay>
+                        <source src="{% static 'videoplayback.mp4' %}" type="video/mp4"></source>
+                    </video>
+                    {% comment %} <img src="{% static 'img/code.jpg' %}" alt=""> {% endcomment %}
                 </div>
             </div>
         </div>
