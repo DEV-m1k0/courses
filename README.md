@@ -1,7 +1,3 @@
-# <a href="https://github.com/Gru-corp/Null/tree/backend">Backend Developer</a>
-PolinaScrbbs - Ивановский Тимофей
-# <a href="https://github.com/Gru-corp/Null/tree/frontend">Frontend Developer</a>
-Light2d - Жирков Павел
-
+![Image](https://github.com/user-attachments/assets/5d455e94-b935-4f37-a9f8-0aae4d76dad3)
 
 
