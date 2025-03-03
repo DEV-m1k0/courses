@@ -1,0 +1,374 @@
+[
+{
+  "model": "Subject.userrole",
+  "pk": 1,
+  "fields": {
+    "title": "Администратор"
+  }
+},
+{
+  "model": "Subject.userrole",
+  "pk": 2,
+  "fields": {
+    "title": "Организатор"
+  }
+},
+{
+  "model": "Subject.userrole",
+  "pk": 3,
+  "fields": {
+    "title": "Пользователь"
+  }
+},
+{
+  "model": "Subject.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$600000$U6CJdBxzzQBLete6JEswfM$jcTfTJ4ub22ByMTZycSG/CiWOjIfum286vT7h32h0NI=",
+    "last_login": "2024-04-10T08:17:35.041Z",
+    "is_superuser": true,
+    "avatar": "",
+    "username": "PolinaScrbbs",
+    "role": 1,
+    "full_name": "Ивановский Тимофей Владиславович",
+    "email": "polinascaraboobs@gmail.com",
+    "phone_number": null,
+    "mailing": false,
+    "is_active": true,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Subject.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$260000$c4ptbnlyUaSBoIGplLBGji$KoNPI81mVggqtezkj/gI5ZdJ3nHa7J5NIwsJirU15xI=",
+    "last_login": null,
+    "is_superuser": true,
+    "avatar": "",
+    "username": "Light2d",
+    "role": 1,
+    "full_name": "Жирков Павел Максимович",
+    "email": "light2d@gmail.com",
+    "phone_number": null,
+    "mailing": false,
+    "is_active": true,
+    "is_staff": true,
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "Subject.organizationmemberrole",
+  "pk": 1,
+  "fields": {
+    "title": "Создтель"
+  }
+},
+{
+  "model": "Subject.organizationmemberrole",
+  "pk": 2,
+  "fields": {
+    "title": "Администратор"
+  }
+},
+{
+  "model": "Subject.organizationmemberrole",
+  "pk": 3,
+  "fields": {
+    "title": "Участник"
+  }
+},
+{
+  "model": "Subject.organization",
+  "pk": 1,
+  "fields": {
+    "avatar": "organization_avatars/user_Cg6PXN2.png",
+    "name": "Null",
+    "full_title": "NullProjct",
+    "description": "Описание",
+    "email": "Null@gmail.com",
+    "phone_number": "+79513171214"
+  }
+},
+{
+  "model": "Subject.organizationmember",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "role": 1,
+    "organization": 1
+  }
+},
+{
+  "model": "Subject.organizationmember",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "role": 2,
+    "organization": 1
+  }
+},
+{
+  "model": "Statistic.level",
+  "pk": 1,
+  "fields": {
+    "title": "Первый",
+    "needed_exp": 0
+  }
+},
+{
+  "model": "Statistic.level",
+  "pk": 2,
+  "fields": {
+    "title": "Второй",
+    "needed_exp": 250
+  }
+},
+{
+  "model": "Statistic.level",
+  "pk": 3,
+  "fields": {
+    "title": "Третий",
+    "needed_exp": 500
+  }
+},
+{
+  "model": "Statistic.level",
+  "pk": 4,
+  "fields": {
+    "title": "Четвёртый",
+    "needed_exp": 1000
+  }
+},
+{
+  "model": "Statistic.level",
+  "pk": 5,
+  "fields": {
+    "title": "Пятый",
+    "needed_exp": 2500
+  }
+},
+{
+  "model": "Event.direction",
+  "pk": 1,
+  "fields": {
+    "creator": 1,
+    "title": "Программирование"
+  }
+},
+{
+  "model": "Event.eventstatus",
+  "pk": 1,
+  "fields": {
+    "title": "Запланировано"
+  }
+},
+{
+  "model": "Event.eventstatus",
+  "pk": 2,
+  "fields": {
+    "title": "В процессе"
+  }
+},
+{
+  "model": "Event.eventstatus",
+  "pk": 3,
+  "fields": {
+    "title": "Завершено"
+  }
+},
+{
+  "model": "Event.tag",
+  "pk": 1,
+  "fields": {
+    "title": "Для 9-11 классов",
+    "description": "Описание"
+  }
+},
+{
+  "model": "Event.tag",
+  "pk": 2,
+  "fields": {
+    "title": "Python",
+    "description": "Пайтон"
+  }
+},
+{
+  "model": "Event.tag",
+  "pk": 3,
+  "fields": {
+    "title": "Math",
+    "description": "Матч"
+  }
+},
+{
+  "model": "Event.tag",
+  "pk": 4,
+  "fields": {
+    "title": "DataTime",
+    "description": "Дататайм"
+  }
+},
+{
+  "model": "Event.event",
+  "pk": 1,
+  "fields": {
+    "creator": 1,
+    "avatar": "",
+    "direction": 1,
+    "title": "Курс по Python",
+    "description": "С другой стороны постоянное информационно техническое обеспечение нашей деятельности способствует подготовке и реализации системы масштабного изменения ряда параметров.",
+    "used_skills": "Владение языком Python, Написание простых вычислительных алгоритмов, Склонность к мазохизму, Навыки написания чистого, Написание понятного для остальных грамматно структурированного написанного кода",
+    "detailed": "Данный курс служит мостиком между школьной математикой и настоящей живой наукой, знаниями древних греков и тем, что было открыто буквально вчера, а также тем, что еще предстоит узнать человечеству. Курс охватывает все разделы современной математики, показывая их удивительную взаимосвязь, двигаясь по спирали от арифметики и наглядной геометрии для 6-го класса к глубоким фактам теории групп, колец и полей,\r\nкватернионам и теореме Ферма. Автор курса - д.ф.-м.н., к.э.н. А.В.Савватеев, неутомимый популяризатор математики, известный лектор и ютубер.",
+    "number_of_participants": 0,
+    "status": 1,
+    "date": "2024-04-11T08:26:49Z",
+    "duration": "01:00:00",
+    "tag": [
+      1,
+      2,
+      3,
+      4
+    ]
+  }
+},
+{
+  "model": "Event.programminglanguage",
+  "pk": 1,
+  "fields": {
+    "icon": "programming_languages/user.png",
+    "title": "Python"
+  }
+},
+{
+  "model": "Event.task",
+  "pk": 1,
+  "fields": {
+    "event": 1,
+    "title": "Задание 1",
+    "condition": "Напишите программу суммы двух  чисел",
+    "note": "Примечание",
+    "answer_structure": "#Введите ваш код здесь",
+    "programming_languages": [
+      1
+    ]
+  }
+},
+{
+  "model": "Event.task",
+  "pk": 2,
+  "fields": {
+    "event": 1,
+    "title": "Задание 2",
+    "condition": "Напишите программу находящую квадрат числа",
+    "note": "Примечание",
+    "answer_structure": "#Введите ваш код здесь",
+    "programming_languages": [
+      1
+    ]
+  }
+},
+{
+  "model": "Event.task",
+  "pk": 3,
+  "fields": {
+    "event": 1,
+    "title": "Задание 3",
+    "condition": "Напишите программу находящую разность 3 чисел",
+    "note": "Примечание",
+    "answer_structure": "#Введите ваш код здесь",
+    "programming_languages": [
+      1
+    ]
+  }
+},
+{
+  "model": "Event.task",
+  "pk": 4,
+  "fields": {
+    "event": 1,
+    "title": "Задание 4",
+    "condition": "Напишите программу возвращающую \"Привет {Имя}\"",
+    "note": "Примечание",
+    "answer_structure": "#Введите ваш код здесь",
+    "programming_languages": [
+      1
+    ]
+  }
+},
+{
+  "model": "Event.testdata",
+  "pk": 1,
+  "fields": {
+    "task": 1,
+    "input_data": "2. 2",
+    "output_data": "4"
+  }
+},
+{
+  "model": "Event.testdata",
+  "pk": 2,
+  "fields": {
+    "task": 2,
+    "input_data": "5",
+    "output_data": "25"
+  }
+},
+{
+  "model": "Event.testdata",
+  "pk": 3,
+  "fields": {
+    "task": 3,
+    "input_data": "3, 4, -1",
+    "output_data": "0"
+  }
+},
+{
+  "model": "Event.testdata",
+  "pk": 4,
+  "fields": {
+    "task": 4,
+    "input_data": "Миша",
+    "output_data": "Привет Миша"
+  }
+},
+{
+  "model": "Event.taskreward",
+  "pk": 1,
+  "fields": {
+    "exp": 50,
+    "points": 50,
+    "task": 1
+  }
+},
+{
+  "model": "Event.taskreward",
+  "pk": 2,
+  "fields": {
+    "exp": 50,
+    "points": 50,
+    "task": 2
+  }
+},
+{
+  "model": "Event.taskreward",
+  "pk": 3,
+  "fields": {
+    "exp": 50,
+    "points": 50,
+    "task": 3
+  }
+},
+{
+  "model": "Event.taskreward",
+  "pk": 4,
+  "fields": {
+    "exp": 50,
+    "points": 50,
+    "task": 4
+  }
+}
+]

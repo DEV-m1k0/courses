@@ -1,0 +1,114 @@
+{% extends 'base/mainBase.html' %} {% load static %}
+{% block content %} 
+{% comment %} <a href="{% url 'reg_event' event %}">
+    <div class="button">
+        Зарегистрироваться
+    </div>
+</a>  {% endcomment %}
+
+<div class="eventInfo container">
+    <div class="eventInfo__block">
+        <div class="eventInfo__content ">
+            <div class="eventInfo__title">{{event.title}}</div>
+            <div class="eventInfo__description">{{event.description}}</div>
+            <div class="eventInfo__subdescription">
+                <div class="eventInfo__time">{{event.duration}}</div>
+                <div class="eventInfo__author">by {{event.creator.username}}</div>
+            </div>
+        </div>
+        <div class="eventInfo__content eventTags">
+            <div class="eventInfo__tags">
+                {% for tag in event.tag.all %}
+                <div class="eventInfo__tag">
+                    <div>{{tag.title}}</div>
+                    <img src="{% static 'icons/base/python.png' %}" alt="">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="eventInfo__block">
+        <div class="eventSkills">
+            <div class="eventInfo__content eventSkills__content">
+                <div class="eventSkills__title">Использующиеся навыки</div>
+                <div class="eventSkills__lsit">
+                    {% for skill in event.skills %}
+                    <div class="eventSkills__skill">
+                        {{skill}}
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <div class="eventInfo__content eventSkills__content">
+                <div class="eventDetails__title">
+                    Подробнее
+                </div>
+                <div class="eventDetails__description">
+                    {{event.detailed}}
+                </div>
+            </div>
+        </div>
+        <div class="eventStats">
+            <div class="eventInfo__content eventStats__content">
+                <div class="eventSkills__direction">
+                    {{event.direction}}
+                </div>
+                <div class="eventSkills__name">{{event.title}}</div>
+                <div class="eventStat">
+                    <div class="eventStat__list">
+                        <div class="eventStat__tasks">
+                            {{event.task_count}}
+                        </div>
+                        <div class="eventStat__exp">
+                            {{event.exp}}
+                        </div>
+                        <div class="eventStat__score">
+                            {{event.points}}
+                        </div>
+                    </div>
+                </div>
+                <div class="eventSkills__btn">
+                    <a href="{% url 'reg_event' event.title %}">
+                        <button>
+                            Зарегистрироваться
+                        </button>
+                    </a>
+                </div>
+            </div>
+            <div class="eventInfo__content eventStats__content">
+                <div class="eventInfo__creater">
+                    <div class="eventCreater__title">О создателе</div>
+                    <div class="eventCreater__content eventCreater">
+                        <div class="eventCreater__img">
+                            {% if event.creator.avatar %}
+                                <img src="{{ event.creator.avatar.url }}" alt="">
+                            {% else %}
+                                <img src="{% static 'base/mainBase/profile.png' %}" class="header__profile" alt="">
+                            {% endif %}
+                        </div>
+                        <div class="eventCreater__info">
+                            <div class="eventCreater__name">
+                                <span class="yellow">@</span>{{event.creator.username}}
+                            </div>
+                            <div class="eventCreater__description">
+                                Я люблю программировать на Kotlin 
+                                и смотреть аниме про Гулей
+                            </div>
+                            <div class="eventCrater__subtitle">
+                                Клуб любителей математики в <span class="yellow">Telegram</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    
+    <div class="eventInfo__block eventDetails">
+       
+      
+    </div>
+</div>
+
+{% endblock content %}

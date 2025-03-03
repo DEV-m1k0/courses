@@ -1,0 +1,251 @@
+{% extends "base/mainBase.html" %}
+{% load static %}
+
+{% block styles %}
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.js"></script>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/codemirror.min.js"></script>
+
+    <!-- CodeMirror -->
+
+    <!-- Addons -->
+
+    <!-- Hint -->
+    <link rel="stylesheet" href="{% static 'codemirror/addons/hint/show-hint.css' %}">
+    <script src="{% static 'codemirror/addons/hint/show-hint.js' %}"></script>
+
+    <script src="{% static 'codemirror/addons/hint/python-hint.js' %}"></script> <!-- Python -->
+    <script src="{% static 'codemirror/addons/hint/css-hint.js' %}"></script> <!-- CSS -->
+
+    <!-- Search -->
+    <script src="{% static 'codemirror/addons/search/jump-to-line.js' %}"></script> <!-- Активатор (Ctrl-F) -->
+    <script src="{% static 'codemirror/addons/search/search.js' %}"></script>
+    <script src="{% static 'codemirror/addons/search/searchcursor.js' %}"></script>
+
+    <!-- Dialog (Стили для красивого окна) -->
+    <link rel="stylesheet" href="{% static 'codemirror/addons/dialog/dialog.css' %}">
+    <script src="{% static 'codemirror/addons/dialog/dialog.js' %}"></script>
+
+    <!-- Темы -->
+    <link rel="stylesheet" href="{% static 'codemirror/theme/null.css' %}">
+
+    <!-- Языки -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.59.2/mode/pascal/pascal.min.js"></script> <!-- Pascal -->
+    
+    <!-- Python -->
+    <script src="{% static 'codemirror/modes/python/python.js' %}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.0/mode/clike/clike.min.js"></script> <!-- Java, С++, C#, C -->
+{% endblock styles %}
+
+{% block content %}
+<main>
+    <div class="toolbar container">
+
+        <div class="toolbar__container">
+            <div class="toolbar__tabs">
+                <div class="toolbar__title">Событие: {{ event }}</div>
+
+                <button class="tablink active" data-tab="tab1">Задание</button>
+                <button class="tablink" data-tab="tab2">Выходные данные</button>
+                <button class="tablink" data-tab="tab3">Условия</button>
+            
+                <div id="tab1" class="tabcontent" style="display: block">
+                    {% for taskList in tasks %}
+                        {% if taskList.title in results %} {% comment %} Если выполнено {% endcomment %}
+                            <div class="tabcontent__task task-done" id="{{taskList.id}}">
+                                {{ taskList.title }}
+                            </div>
+                        {% elif taskList.title == task.title %} {% comment %} Задание, которые ты ща делаешь {% endcomment %}
+                            <a href="{% url 'event_task' event.title taskList.title %}">
+                                <div class="tabcontent__task task-active" id="{{taskList.id}}">
+                                    {{ taskList.title }}
+                                </div>
+                            </a>
+                        {% else %} {% comment %} Стандарт {% endcomment %}
+                            <a href="{% url 'event_task' event.title taskList.title %}">
+                                <div class="tabcontent__task" id="{{taskList.id}}">
+                                    {{ taskList.title }}
+                                </div>
+                            </a>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+                <div id="tab2" class="tabcontent">
+                    <span id="output"></span>
+                </div>
+                <div id="tab3" class="tabcontent" readonly>
+                    {{task.condition}}
+                </div>
+            </div>
+            <div class="toolbar__area">
+                <!-- <div class="toolbar__languages languages">
+                    <button class="languages__btn">Python</button>
+                    <div class="languages__content">
+                        {% for programming_language in programming_languages %}
+                                <button>{{ programming_language }}</button>
+                        {% endfor %}
+                    </div>
+                </div> -->
+                <textarea class="toolbar__textarea" name="" id="code" ></textarea>
+
+                <div class="toolbar__buttons">
+                    <div class="toolbar__btns">
+                        {% if next_task != None %}
+                            <a href="{% url 'event_task' event.title next_task.title %}">
+                                <button class="toolbar__btn">Пропустить</button>
+                            </a>
+                        {% endif %}
+                        <button class="toolbar__btn">Комментарии</button>
+                        <button class="toolbar__btn">Сбросить</button>
+                    </div>
+
+                    <div class="toolbar__btns">
+                        <button class="toolbar__button" id="runButton">Тест</button>
+                        <!-- {% if tasks.last.condition|lower == task|lower %}
+                        <a href="{% url 'event_task' event.title None %}">
+                            <button class="toolbar__button">Отправить</button>
+                        </a>
+                        {% else %} -->
+                        <a href="{% url 'event_info' event.title %}">
+                            <button class="toolbar__button">Завершить</button>
+                        </a>
+                        <!-- {% endif %} -->
+                    </div>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock content %}
+
+{% block scripts %}
+<script>
+    var editor = CodeMirror.fromTextArea(document.getElementById('code'), {
+    theme: 'null',
+    mode: 'python',
+    indentUnit: 4, //Tab
+    lineNumbers: true, //Циферки
+    hintOptions: { // Параметры для автодополнения
+        hint: CodeMirror.hint.python, // Функция автодополнения для Python
+        completeSingle: false // Показывать автодополнение даже при вводе одиночного символа
+    }
+});
+
+editor.on("change", function(cm, change) {
+    if (change.text.length === 1 && /^[a-zA-Z0-9_]$/.test(change.text[0])) {
+        cm.showHint(); 
+    }
+});
+
+function changeMode(language) {
+    language = language.toLowerCase();
+    console.log(language)
+    editor.setOption("mode", language);
+}
+ 
+</script>
+
+<script src="{% static 'js/list_switching.js' %}"></script>
+<script src="{% static 'js/reset.js' %}"></script>
+<script src="{% static 'app.js' %}"></script>
+<script src="{% static 'task.js' %}"></script>
+<!-- <script src="{% static 'js/run_code.js' %}"></script> -->
+<script>
+    function getCSRFToken() {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = cookies[i].trim();
+            // Ищем CSRF токен по имени "csrftoken"
+            if (cookie.substring(0, 10) === 'csrftoken=') {
+                cookieValue = decodeURIComponent(cookie.substring(10));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+const csrftoken = getCSRFToken(); 
+const run_btn = document.getElementById('runButton');
+const result_btn = document.getElementById('resultBotton');
+
+run_btn.addEventListener('click', () => {
+    runCode();
+});
+
+
+if (result_btn) {
+    result_btn.addEventListener('click', () => {
+        saveResult();
+    });
+}
+
+function runCode() {
+    var code = editor.getValue();
+    var task_id = "{{ task.id }}";
+    var event_id = "{{event.id}}"
+
+    fetch('/run_code/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ 
+            code: code, 
+            task_id: task_id,
+            event_id: event_id
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        document.getElementById('output').innerText = data.CodeResult;
+        document.getElementById('btn_output_data').click();
+    })
+    .catch(error => console.error('Ошибка:', error));
+}
+
+function saveResult() {
+    var code = editor.getValue();
+    var save_result = "True";
+    var event_title = "{{ event }}";
+    var task_id = "{{ task.id }}";
+
+    fetch('/save_result/', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({
+            code: code,
+            save_result: save_result,
+            event_title: event_title,
+            task_id: task_id
+        }),
+    })
+    .then(response => response.json())
+    .then(data => {
+        const event = data.event;
+        const task = data.task
+        const url = '/' + event + '/' + task + '/';
+        window.location.href = url;
+    })
+    .catch(error => console.error('Ошибка:', error));
+}
+</script>
+<script>
+    $(document).ready(function(){
+        $('.dropdown-item').on('click', function(){
+            var selectedOption = $(this).text();
+            $('#dropdownMenuButton').text(selectedOption);
+        });
+    });
+</script>
+{% endblock scripts %}

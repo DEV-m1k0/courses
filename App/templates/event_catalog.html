@@ -1,0 +1,135 @@
+{% extends "base/mainBase.html" %}
+{% load static %}
+
+{% block content %}
+<main>
+    <div class="eventNav container">
+        <div class="eventNav__search-container">
+            <div class="eventNav__search">
+                <input type="text" placeholder="Название мероприятия" class="eventNav__input">
+            </div>  
+            <button class="eventNav__btn btn">
+                Найти
+            </button>
+        </div>
+        <div class="eventNav__mark">
+            <label>Активные</label>
+            <input type="checkbox">
+        </div>
+        <div class="eventNav__list">
+            Любое направление ⭣
+        </div>
+    </div>
+
+    <div class="events">
+        <div class="events__container container">
+            <div class="events__title">Мероприятия</div>
+            <div class="events__statuses">
+                <div class="events__status active-status">Все мероприятия</div>
+                <div class="events__status">Зарегистрированные</div>
+                <div class="events__status">Ближайшие</div>
+                <div class="events__status">В этом месяце</div>
+            </div>
+            <div class="eventCards">
+                {% for event in events %}
+                    <div class="eventCards__card">
+                        <div class="eventCards__content">
+                            <div class="eventCards__info">
+                                <div class="eventCards__title">
+                                    {{event.title}}
+                                </div>
+                                <div class="eventCards__description">
+                                    {{event.direction}}
+                                </div>
+                            </div>
+                            {% if event.avatar %}
+                                <div class="eventCards__img">
+                                    <img src="{{ event.avatar.url }}" alt="">
+                                    <diV class="eventCards__date">{{ event.date }}</diV>
+                                </div>
+                            {% else %}
+                            <div class="eventCards__img">
+                                <img src="{% static "img/null.png" %}" alt="Аватарка">
+                                <diV class="eventCards__date">{{ event.date }}</diV>
+                            </div>
+                            {% endif %}
+                        </div>
+                        <div class="eventCards__btn">
+                            <a href="{% url "event_info" event.title%}">
+                                <button class="btn">Перейти</button>
+                            </a>     
+                        </div>
+                        <div class="eventCards__stat">
+                            <div class="eventCards__count">Количество участников: {{event.number_of_participants}}</div>
+                            <div class="eventCards__role">{{ evetn.r }}</div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+            <div class="populars">
+                <div class="populars__name">Часто ищут</div>
+                <div class="populars__cards">
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                    <div class="populars__card">
+                        <div class="populars__top">
+                            <div class="populars__title">Python</div>
+                            <img src="../static/img/peoples.svg" class="populars__img">
+                        </div>
+                        <div class="populars__subtitle">Программирование</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<script src="{% static 'app.js' %}"></script>
+<script src="{% static 'event.js' %}"></script>
+{% endblock content %}
