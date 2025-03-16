@@ -152,7 +152,7 @@ class TaskReward(Reward):
     task = models.OneToOneField(Task, on_delete=models.CASCADE, verbose_name='Задание')
     
     def __str__(self):
-        return self.task
+        return self.task.title
 
 class TaskComment(Comment):
     class Meta:
@@ -214,7 +214,7 @@ class Result(models.Model):
             self.save()
         
         if self.is_right:
-            reward_points = TaskReward.objects.get(task=self.task).ponts
+            reward_points = TaskReward.objects.get(task=self.task).points
 
             # Проверка на существование результатов участника, если нет, то создаём
             event_result, created = EventResult.objects.get_or_create(participant=self.user)
