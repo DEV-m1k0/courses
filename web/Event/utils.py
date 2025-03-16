@@ -1,7 +1,9 @@
 import sys
 import io
 
-def execute_code(code, input_data):
+
+
+def execute_code(code, input_data):    
     stdout = io.StringIO()
     sys.stdout = stdout
 
@@ -9,7 +11,7 @@ def execute_code(code, input_data):
         for data in input_data:
             input_index = code.find('input()')
             if input_index != -1:
-                code = code[:input_index] + data + code[input_index+7:]
+                code = code[:input_index] + f"'{data}'" + code[input_index+7:]
         exec(code)
         result = stdout.getvalue()
         stdout.truncate(0)
@@ -23,9 +25,12 @@ def execute_code(code, input_data):
 def test_task(code, input_data_list, output_data_list):
     correct_tests = 0
 
+
     for j in range(len(input_data_list)):
         input_data = [x.strip() for x in input_data_list[j].split(", ")]
+
         test_result, success = execute_code(code, input_data)
+
         if success:
             print(test_result, output_data_list[j])
             if str(test_result).strip() == str(output_data_list[j]).strip():
