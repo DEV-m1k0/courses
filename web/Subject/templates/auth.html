@@ -1,0 +1,78 @@
+{% extends 'base/base.html' %} 
+{% load static %}
+
+{% block links %}
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/form.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="form-container container position-relative h-100">
+    <form class="bg-transparent border border-warning border-opacity-25 rounded position-absolute p-4 text-warning w-100" method="post">
+        {% csrf_token %}
+        <h2 class="text-center">Вход в аккаунт</h2>
+        
+        <hr>
+
+        <div class="form-group">
+            <label for="username" class="form-label">Имя пользователя:</label>
+            {{form.username}}
+            <small class="form-text text-warning-emphasis">Введите уникальное имя пользователя</small>
+        </div>
+
+        <br>
+
+        <div class="form-group">
+            <label for="username" class="form-label">Пароль:</label>
+            {{form.password}}
+            <small class="form-text text-warning-emphasis">Введите пароль от своего аккаунта</small>
+
+        </div>
+
+        <br>
+
+        <button class="btn btn-primary w-100 mt-2" type="submit">Войти</button>
+
+    </form>
+
+    {% if form.non_field_errors %}
+        <script>
+            const inputs = document.getElementsByTagName('input')
+            for (const input of inputs) {
+                input.classList.add('is-invalid');
+            }
+        </script>
+
+        <div id="loginToast" class="toast-container position-fixed end-0 bottom-0 p-3">
+            <div class="toast bg-danger show fade">
+                <div class="toast-header">
+                    <span class="me-auto">Информация о входе</span>
+                    <button id="closeBtn" type="button" class="btn-close" data-bs-dismiss="toast"></button>
+                </div>
+                <div class="toast-body text-white">
+                    {{form.non_field_errors}}
+                </div>
+            </div>
+        </div>
+
+        <script>
+            const myToast = document.getElementById('myToast');
+            const closeBtn = document.getElementById('closeBtn');
+
+            setTimeout(function() {
+                closeBtn.click();
+            }, 5000)
+        </script>
+        
+
+    {% endif %}
+
+</div>
+
+{% endblock body %}
+
+{% block scripts %}
+
+    <script src="{% static 'bootstrap/js/bootstrap.js' %}"></script>
+
+{% endblock %}

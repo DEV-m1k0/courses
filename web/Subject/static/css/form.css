@@ -1,0 +1,26 @@
+body {
+    min-height: 100vh;
+    min-width: 100vw;
+}
+
+.form-container {
+    min-height: 75vh;
+    /* text-shadow: 0 4px 8px rgb(255, 0, 0); Настройки тени */
+}
+
+form {
+    max-width: 50vw;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -webkit-transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    -o-transform: translate(-50%, -50%);
+}
+
+@media (max-width: 767px) {
+    form {
+        max-width: 100%;
+    }
+}

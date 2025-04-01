@@ -1,0 +1,11 @@
+.logo-text {
+    letter-spacing: 2px;
+    color: transparent;
+    -webkit-text-stroke-width: 2px; /* толщина контура текста */
+    -webkit-text-stroke-color: #5C0089; /* цвет контура текста */
+}
+
+.logo-img {
+    max-height: 50px;
+    max-width: 50px;
+}

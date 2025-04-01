@@ -1,8 +1,28 @@
 from django import forms
 from .models import User
+from django.contrib.auth.forms import AuthenticationForm
 
 from .form_verification_def import data_availability, length_check, check_string, check_numeric, symbols_presence, symbols_absence, check_db, is_full_name, name_checker
 from .form_verification_def import password_data_availability, password_length_check, password_symbols_absence, password_equality_check
+
+
+class MyAuthForm(AuthenticationForm):
+    def __init__(self, request = None, *args, **kwargs):
+        super().__init__(request, *args, **kwargs)
+
+        self.fields['username'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Имя пользователя',
+            'required': True
+        })
+        self.fields['username'].label = 'Имя пользователя'
+
+        self.fields['password'].widget.attrs.update({
+            'class': 'form-control',
+            'placeholder': 'Пароль',
+            'required': True
+        })
+
 
 class RegistrationForm(forms.ModelForm):
     class Meta:

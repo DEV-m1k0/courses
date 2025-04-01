@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.css' %}">
+    {% block links %}{% endblock %}
+    <link rel="stylesheet" href="{% static 'css/header-logo.css' %}">
+    <title>{% block title %}{% endblock %}</title>
+</head>
+<body style="background-color: #00010b;">
+    
+    <header class="container py-3">
+        <a href="{% url 'index' %}" class="d-flex text-decoration-none">
+            <img class="logo-img img-fluid" src="{% static 'base/mainBase/logo.png' %}" alt="">
+            <h1 class="logo-text d-flex align-items-center m-0 ms-3">КГПК</h1>
+        </a>
+        <hr class="text-white">
+    </header>
+
+
+    {% block body %}{% endblock %}
+
+    {% block scripts %}{% endblock %}
+
+</body>
+</html>

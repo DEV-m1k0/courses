@@ -1,7 +1,15 @@
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm
+from .forms import RegistrationForm, MyAuthForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import login
+from django.contrib.auth.views import LoginView
+from django.views import generic
+from .models import User
+
+
+class AuthenticationView(LoginView):
+    form_class = MyAuthForm
+    template_name = 'auth.html'
 
 def registration(request):
     if request.user.is_authenticated:

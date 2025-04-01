@@ -11,4 +11,5 @@ urlpatterns += [
     path('',include('Subject.urls')),
     path('',include('App.urls')),
     path('',include('Event.urls')),
+    path('api/',include('api.urls')),
 ]
