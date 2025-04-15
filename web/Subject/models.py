@@ -1,6 +1,8 @@
+from typing import Iterable
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
+from django.contrib.auth import hashers
 
 #Роли (Администратор, модератор, пользователь)  
 class Role(models.Model):
@@ -43,10 +45,13 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='user_avatars', blank=True, null=True, verbose_name='Аватарка')
     username = models.CharField(max_length=50, unique=True, blank=False, verbose_name='Уникальное имя')
     role = models.ForeignKey(UserRole, on_delete=models.SET_NULL, blank=True, default=3, null=True, verbose_name='Роль')
-    full_name = models.CharField(max_length=100, blank=False, verbose_name='Полное имя')
+    first_name = models.CharField(max_length=100, blank=False, verbose_name='Имя')
+    last_name = models.CharField(max_length=100, blank=False, verbose_name='Фамилия')
+    patronymic = models.CharField(max_length=100, blank=True, null=True, verbose_name='Отчество')
     email = models.EmailField(unique=True, blank=False, verbose_name='E-mail')
     phone_number = models.CharField(max_length=15, blank=True, null=True, verbose_name='Номер телефона')
     mailing = models.BooleanField(verbose_name='Согласие на рассылку', default=False)
+    agree_to_terms = models.BooleanField(default=False)
 
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
@@ -54,7 +59,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['email', 'full_name']
+    REQUIRED_FIELDS = ['email']
 
     class Meta:
         verbose_name = 'Пользователь'
@@ -62,6 +67,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    @property
+    def full_name(self):
+        return f"{self.last_name} {self.first_name} {self.patronymic}"
 
 #ОРГАНИЗАЦИЯ===============================================================================================>
 

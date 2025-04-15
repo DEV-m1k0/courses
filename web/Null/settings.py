@@ -1,8 +1,12 @@
 import os
 from pathlib import Path
+import dotenv, os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+dotenv.load_dotenv(f"{BASE_DIR}/.env")
 
 # # Добавьте ваши настройки Celery
 # CELERY_BROKER_URL = 'amqp://guest:guest@localhost'  # URL для вашего брокера сообщений (RabbitMQ)
@@ -26,10 +30,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-k=s58ugb@@w=fih5nql$a8gs9=2e%*2xfc^1z^r8zs^3gfho)v'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -42,7 +46,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
     'rest_framework',
+    'rest_framework_simplejwt',
+    'drf_spectacular',
     
     'Subject',
     'Statistic',
@@ -50,6 +57,22 @@ INSTALLED_APPS = [
     'Event',
     'api'
 ]
+
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'API для курсов',
+    'DESCRIPTION': 'Документирование всех эндпойнтов',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    # OTHER SETTINGS
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,16 +92,20 @@ WSGI_APPLICATION = 'Null.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 DATABASES = {
     'default': {
-        # "ENGINE": "django.db.backends.postgresql",
-        # 'NAME': 'Null',
-        # 'USER': 'postgres',
-        # 'PASSWORD': '111',
-        # 'HOST': 'localhost',  # Или IP-адрес вашего сервера PostgreSQL
-        # 'PORT': '5432',       # Порт PostgreSQL
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',  
+        "ENGINE": os.environ.get("DB_ENGINE"),
+        'NAME': os.environ.get("DB_NAME"),
+        'USER': os.environ.get("DB_USER"),
+        'PASSWORD': os.environ.get("DB_PASSWORD"),
+        'HOST': os.environ.get("DB_HOST"),
+        'PORT': os.environ.get("DB_PORT"),
     }
 }
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',  
+#     }
+# }
 
 AUTH_USER_MODEL = 'Subject.User'
 

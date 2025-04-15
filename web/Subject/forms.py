@@ -23,78 +23,114 @@ class MyAuthForm(AuthenticationForm):
             'required': True
         })
 
+# class RegistrationForm(forms.ModelForm):
+#     class Meta
+
 
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['username', 'full_name', 'email', 'password', 'password_check', 'agree_to_terms', 'mailing']
+        fields = ['username', 'last_name', 'first_name', 'patronymic', 'email', 'password', 'password_check', 'agree_to_terms', 'mailing']
+        labels = {
+            "full_name": "Полное имя",
+            "email": "Почта",
+            "password": "Пароль",
+            "agree_to_terms": "Соглашение с правилами сайта",
+            "mailing": "Согласие на рассылку"
+        }
+        widgets = {
+            'username': forms.TextInput(attrs={
+                'class': "form-control"
+            }),
+            'full_name': forms.TextInput(attrs={
+                'class': "form-control"
+            }),
+            'email': forms.EmailInput(attrs={
+                'class': "form-control"
+            }),
+            'password': forms.PasswordInput(attrs={
+                'class': "form-control"
+            }),
+            'agree_to_terms': forms.CheckboxInput(attrs={
+                'class': "form-check-input"
+            }),
+            'username': forms.TextInput(attrs={
+                'class': "form-control"
+            }),
+            'username': forms.TextInput(attrs={
+                'class': "form-control"
+            }),
+        }
 
-    username = forms.CharField(label='username', widget=forms.TextInput(attrs={'placeholder': 'Имя пользователя', 'image_url': '/media/auth/user.svg'}))
-    full_name = forms.CharField(label='Полное имя', widget=forms.TextInput(attrs={'placeholder': 'Полное имя', 'image_url': '/media/auth/user.svg'}))
-    email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'placeholder': 'Почта', 'image_url': '/media/auth/email.svg'}))
+    # username = forms.CharField(label='username', widget=forms.TextInput(attrs={'placeholder': 'Имя пользователя', 'image_url': '/media/auth/user.svg'}))
+    # full_name = forms.CharField(label='Полное имя', widget=forms.TextInput(attrs={'placeholder': 'Полное имя', 'image_url': '/media/auth/user.svg'}))
+    # email = forms.EmailField(label='E-mail', widget=forms.EmailInput(attrs={'placeholder': 'Почта', 'image_url': '/media/auth/email.svg'}))
     
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'placeholder': 'Пароль', 'image_url': '/media/auth/password.svg'}))
-    password_check = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput(attrs={'placeholder': 'Подтвердите пароль', 'image_url': '/media/auth/password.svg'}))
+    # password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'placeholder': 'Пароль', 'image_url': '/media/auth/password.svg'}))
+    password_check = forms.CharField(label='Подтверждение пароля', widget=forms.PasswordInput(attrs={
+        'placeholder': 'Подтвердите пароль',
+        'class': 'form-control'
+        }))
     
-    agree_to_terms = forms.BooleanField(label='Создавая аккаунт, вы соглашаетесь с нашей политикой конфидециальности', required=True)
-    mailing = forms.BooleanField(label='Согласиться на спам', required=False)
+    # agree_to_terms = forms.BooleanField(label='Создавая аккаунт, вы соглашаетесь с нашей политикой конфидециальности', required=True)
+    # mailing = forms.BooleanField(label='Согласиться на спам', required=False)
 
-    def clean_username(self):
-        forbidden_symbols = ('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '[', ']', '{', '}', ';', ':', ',', '<', '>', '/', '?', '|', '\\')
-        email_domains = ['@gmail.com', '@mail.ru', '@yandex.ru', '@inbox.ru', '@ok.ru', '@rambler.ru']
-        allowed_symbols = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890'
-        username = self.cleaned_data['username']
+    # def clean_username(self):
+    #     forbidden_symbols = ('!', '@', '#', '$', '%', '^', '&', '*', '(', ')', '+', '=', '[', ']', '{', '}', ';', ':', ',', '<', '>', '/', '?', '|', '\\')
+    #     email_domains = ['@gmail.com', '@mail.ru', '@yandex.ru', '@inbox.ru', '@ok.ru', '@rambler.ru']
+    #     allowed_symbols = 'qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM1234567890'
+    #     username = self.cleaned_data['username']
         
-        data_availability(username, 'Имя пользователя')
-        length_check(username, 'Имя пользователя', 4, 20)
-        check_numeric(username, 'Имя пользователя не может состоять только из цифр')
-        symbols_absence(username, allowed_symbols, 'Никнейм может содержать только английские буквы и цифры')
-        symbols_presence(username, forbidden_symbols, 'Поле может содержать только буквы и цифры')
-        symbols_presence(username, email_domains, 'Поле не может содержать домен почты')
-        name_checker(username, 'Поле содержит запрещённые слова')
-        check_db('User', 'username', username, 'Пользователь с таким именем уже зарегистрирован')
+    #     data_availability(username, 'Имя пользователя')
+    #     length_check(username, 'Имя пользователя', 4, 20)
+    #     check_numeric(username, 'Имя пользователя не может состоять только из цифр')
+    #     symbols_absence(username, allowed_symbols, 'Никнейм может содержать только английские буквы и цифры')
+    #     symbols_presence(username, forbidden_symbols, 'Поле может содержать только буквы и цифры')
+    #     symbols_presence(username, email_domains, 'Поле не может содержать домен почты')
+    #     name_checker(username, 'Поле содержит запрещённые слова')
+    #     check_db('User', 'username', username, 'Пользователь с таким именем уже зарегистрирован')
         
-        return username
+    #     return username
 
-    def clean_email(self):
-        email_domains = ['@gmail.com', '@mail.ru', '@yandex.ru', 'inbox.ru', 'ok.ru', 'rambler.ru']
-        email = self.cleaned_data['email']
+    # def clean_email(self):
+    #     email_domains = ['@gmail.com', '@mail.ru', '@yandex.ru', 'inbox.ru', 'ok.ru', 'rambler.ru']
+    #     email = self.cleaned_data['email']
         
-        data_availability(email, 'Электронная почта')
-        symbols_absence(email, email_domains, 'Формат электронной почты не верный')
-        check_db('User', 'email', email, 'Пользователь с таким e-mail уже зарегистрирован')
+    #     data_availability(email, 'Электронная почта')
+    #     symbols_absence(email, email_domains, 'Формат электронной почты не верный')
+    #     check_db('User', 'email', email, 'Пользователь с таким e-mail уже зарегистрирован')
 
-        return email
+    #     return email
 
-    def clean_full_name(self):
-        full_name = self.cleaned_data['full_name']
-        allowed_symbols = 'йцукенгшщзхъфывапролджэячсмитьёЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ'
+    # def clean_full_name(self):
+    #     full_name = self.cleaned_data['full_name']
+    #     allowed_symbols = 'йцукенгшщзхъфывапролджэячсмитьёЁЙЦУКЕНГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ'
         
-        data_availability(full_name, 'ФИО')
-        symbols_absence(full_name, allowed_symbols, 'Имя может содержать только Русские буковы')
-        name_checker(full_name, 'Поле содержит запрещённые слова')
-        is_full_name(full_name,'Введите ваше ФИО через пробел')
+    #     data_availability(full_name, 'ФИО')
+    #     symbols_absence(full_name, allowed_symbols, 'Имя может содержать только Русские буковы')
+    #     name_checker(full_name, 'Поле содержит запрещённые слова')
+    #     is_full_name(full_name,'Введите ваше ФИО через пробел')
         
-        return full_name.title()
+    #     return full_name.title()
     
-    def clean(self):
-        cleaned_data = super().clean()
-        password = cleaned_data['password']
-        password_check = cleaned_data['password_check']
+    # def clean(self):
+    #     cleaned_data = super().clean()
+    #     password = cleaned_data['password']
+    #     password_check = cleaned_data['password_check']
 
-        allowed_symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
+    #     allowed_symbols = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
 
-        password_data_availability(password, 'Пароль')
-        password_length_check(password, 'Пароль', 8, 24)
-        password_symbols_absence(password, allowed_symbols, 'Поле может содержать только латинские буквы и цифры')
-        password_equality_check(password, password_check, 'Пароли не совпадают')
+    #     password_data_availability(password, 'Пароль')
+    #     password_length_check(password, 'Пароль', 8, 24)
+    #     password_symbols_absence(password, allowed_symbols, 'Поле может содержать только латинские буквы и цифры')
+    #     password_equality_check(password, password_check, 'Пароли не совпадают')
         
-        agree_to_terms = cleaned_data.get('agree_to_terms')
+    #     agree_to_terms = cleaned_data.get('agree_to_terms')
 
-        if not agree_to_terms:
-            raise forms.ValidationError({'agree_to_terms': 'Для продолжения необходимо согласиться с условиями'})
+    #     if not agree_to_terms:
+    #         raise forms.ValidationError({'agree_to_terms': 'Для продолжения необходимо согласиться с условиями'})
 
-        return cleaned_data
+    #     return cleaned_data
     
     # def __init__(self, *args, **kwargs):
     #     super(RegistrationForm, self).__init__(*args, **kwargs)

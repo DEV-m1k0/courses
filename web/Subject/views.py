@@ -11,6 +11,14 @@ class AuthenticationView(LoginView):
     form_class = MyAuthForm
     template_name = 'auth.html'
 
+
+
+class RegistrationView(generic.CreateView):
+    form_class = RegistrationForm
+    model = User
+    template_name = 'registration.html'
+
+
 def registration(request):
     if request.user.is_authenticated:
         return redirect('index')
