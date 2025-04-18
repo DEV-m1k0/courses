@@ -1,16 +1,14 @@
+from typing import Any
+
 from django.shortcuts import render, redirect
-from .forms import RegistrationForm, MyAuthForm
 from django.contrib.auth.hashers import make_password
 from django.contrib.auth import login
-from django.contrib.auth.views import LoginView
 from django.views import generic
+
+import requests, json
+
+from .forms import RegistrationForm
 from .models import User
-
-
-class AuthenticationView(LoginView):
-    form_class = MyAuthForm
-    template_name = 'auth.html'
-
 
 
 class RegistrationView(generic.CreateView):

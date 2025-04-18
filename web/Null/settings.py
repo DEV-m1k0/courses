@@ -1,6 +1,7 @@
 import os
 from pathlib import Path
 import dotenv, os
+from datetime import datetime, timedelta
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -49,6 +50,7 @@ INSTALLED_APPS = [
     
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_simplejwt.token_blacklist',
     'drf_spectacular',
     
     'Subject',
@@ -64,6 +66,41 @@ REST_FRAMEWORK = {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
     'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': False,
+    'BLACKLIST_AFTER_ROTATION': True,
+    'UPDATE_LAST_LOGIN': False,
+
+    'ALGORITHM': 'HS256',   # Алгоритм шифрования токенов
+    'SIGNING_KEY': SECRET_KEY,  # Ваш секретный ключ приложения
+    'VERIFYING_KEY': None,
+    'AUDIENCE': None,
+    'ISSUER': None,
+
+    'AUTH_HEADER_TYPES': ('Bearer',),
+    'AUTH_HEADER_NAME': 'HTTP_AUTHORIZATION',
+    'USER_ID_FIELD': 'id',
+    'USER_ID_CLAIM': 'user_id',
+
+    'AUTH_TOKEN_CLASSES': ('rest_framework_simplejwt.tokens.AccessToken',),
+    'TOKEN_TYPE_CLAIM': 'token_type',
+
+    'JTI_CLAIM': 'jti',
+
+    'SLIDING_TOKEN_REFRESH_EXP_CLAIM': 'refresh_exp',
+    'SLIDING_TOKEN_LIFETIME': timedelta(minutes=5),
+    'SLIDING_TOKEN_REFRESH_LIFETIME': timedelta(days=1),
+
+    'AUTH_COOKIE_ACCESS_TOKEN': 'access_token',  # Название куки для access token
+    'AUTH_COOKIE_REFRESH_TOKEN': 'refresh_token',  # Название куки для refresh token
+    'AUTH_COOKIE_DOMAIN': None,  # Домен для cookie (оставьте None, если не хотите ограничивать)
+    'AUTH_COOKIE_SECURE': True,  # Устанавливайте True, если сайт работает по HTTPS
+    'AUTH_COOKIE_HTTP_ONLY': True,  # Убедитесь, что куки нельзя прочитать из JS
+    'AUTH_COOKIE_SAMESITE': 'Lax',  # Режим SameSite (защита от CSRF)
 }
 
 SPECTACULAR_SETTINGS = {
@@ -82,6 +119,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'authentication.middlewares.paste_tokens_to_request.GetAccessAndRefreshTokensFromCookies',
+    'authentication.middlewares.set_tokens.SetAccessAndRefreshTokensMiddleware',
 ]
 
 ROOT_URLCONF = 'Null.urls'
@@ -100,6 +139,7 @@ DATABASES = {
         'PORT': os.environ.get("DB_PORT"),
     }
 }
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -153,15 +193,22 @@ LOGOUT_REDIRECT_URL = 'login'
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
 #Установка русского языка для полей восстановления пароля
-LANGUAGE_CODE = 'ru-RU'
-
 TIME_ZONE = 'UTC'
-
-USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+USE_I18N = True  # Включает поддержку многоязычности
+
+LOCALE_PATHS = ['locale']  # Каталог для файлов переводов (.po/.mo)
+
+LANGUAGE_CODE = 'ru-RU'  # Язык по умолчанию
+
+LANGUAGES = [  # Список поддерживаемых языков
+    ('ru', 'Русский'),
+    ('en', 'Английский')
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field

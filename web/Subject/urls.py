@@ -1,6 +1,5 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
-from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
 from .forms import RegistrationForm
@@ -10,8 +9,7 @@ form = RegistrationForm()
 #Auth
 urlpatterns = [
     path('registration/', RegistrationView.as_view(), name='registration'),
-    path('login/', AuthenticationView.as_view(), name='login'),
-    path('logout', LogoutView.as_view(), name='logout')
+    path('', include('authentication.urls'))
 ]
 
 #Password_Reset

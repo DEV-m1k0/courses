@@ -2,7 +2,8 @@ from typing import Iterable
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
-from django.contrib.auth import hashers
+import jwt, datetime
+from Null.settings import SECRET_KEY
 
 #Роли (Администратор, модератор, пользователь)  
 class Role(models.Model):
@@ -40,7 +41,7 @@ class UserManager(BaseUserManager):
 
         return self.create_user(username, email, password, **extra_fields)
 
-#Пользователи
+
 class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='user_avatars', blank=True, null=True, verbose_name='Аватарка')
     username = models.CharField(max_length=50, unique=True, blank=False, verbose_name='Уникальное имя')
@@ -71,8 +72,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def full_name(self):
         return f"{self.last_name} {self.first_name} {self.patronymic}"
+    
 
-#ОРГАНИЗАЦИЯ===============================================================================================>
 
 #Роль участника организации
 class OrganizationMemberRole(Role):

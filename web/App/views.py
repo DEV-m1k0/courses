@@ -1,46 +1,63 @@
+# ---------------------------------- Imports --------------------------------- #
+
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
+from django.views import generic
+
+from rest_framework_simplejwt.authentication import JWTAuthentication
+
+from rest_framework.permissions import IsAuthenticated
 
 from Subject.models import User, UserRole
 from Event.models import Event, Participant
 from .forms import ProfileForm
 
-# @login_required
-def index(request):
-    if request.user.is_authenticated:
-        return redirect('catalog')
-    context = {
-        'title':'.Null'
-    }
-    return render(request, 'index.html', context)
+# -------------------------------- Main window ------------------------------- #
 
-def event_catalog(request):
-    if request.user.is_authenticated:
-        events = Event.objects.all()
+class MainWindow(generic.TemplateView):
+    template_name = "index.html"
 
-        participant = Participant.objects.filter(user = request.user)
-        participate_in =  participant
-        registered_events = participate_in.values_list('event__title', flat=True)
 
-        context = {
-            'title': 'Мероприятия',
-            'events': events,
-            'registered_events': registered_events
-        }
+    def get(self, request, *args, **kwargs):
+        # if request.session: return redirect("catalog")
+        access_token = getattr(request, "access_token", None)
+        print(access_token)
 
-        return render(request, 'event_catalog.html', context=context)
-    else:
-        events = Event.objects.all()
+        return super().get(request, *args, **kwargs)
 
-        context = {
-            'title': 'Мероприятия',
-            'events': events,
-        }
+# ----------------------------- Catalog of events ---------------------------- #
 
-        return render(request, 'event_catalog.html', context=context)
+class EventCatalog(generic.View):
+    # authentication_classes = [JWTAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        if request.user.is_authenticated:
+            events = Event.objects.all()
+
+            participant = Participant.objects.filter(user = request.user)
+            participate_in =  participant
+            registered_events = participate_in.values_list('event__title', flat=True)
+
+            context = {
+                'title': 'Мероприятия',
+                'events': events,
+                'registered_events': registered_events
+            }
+
+            return render(request, 'event_catalog.html', context=context)
+        else:
+            events = Event.objects.all()
+
+            context = {
+                'title': 'Мероприятия',
+                'events': events,
+            }
+
+            return render(request, 'event_catalog.html', context=context)
         
-#PROFILE==========================================================================================>
+# ---------------------------------- Profile --------------------------------- #
 
 @login_required 
 def profile(request, username):
