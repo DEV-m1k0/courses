@@ -14,8 +14,8 @@ class SetAccessAndRefreshTokensMiddleware:
 
             if access and refresh:
 
-                request.session["access_token"] = access
-                request.session["refresh_token"] = refresh
+                # request.session["access_token"] = access
+                # request.session["refresh_token"] = refresh
 
                 response.set_cookie(
                     key="access_token",
@@ -34,5 +34,7 @@ class SetAccessAndRefreshTokensMiddleware:
                     samesite='lax',
                     max_age=60*2
                 )
+
+                # print("tokens were added to cookies")
 
         return response

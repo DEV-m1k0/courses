@@ -1,0 +1,61 @@
+{% extends 'base/authBase.html' %} 
+{% load static %}
+{% load tags %}
+
+{% block links %}
+    <!-- <link rel="stylesheet" href="{% static 'forms/base-form.css' %}"> -->
+{% endblock %}
+
+{% block form %}
+    <form class="p-4 rounded shadow text-warning border border-warning border-opacity-25" method="post" action="{% url 'registration' %}" enctype="multipart/form-data">
+        {% csrf_token %}
+
+        <h2 class="text-center">Регистрация аккаунта</h2>
+
+        <hr>
+        
+        <div class="mb-2">
+            <label for="" class="fw-bold">{{form.last_name.label}}*</label>
+            {{form.last_name}}
+            <small class="form-text text-warning-emphasis">Введите вашу настоящую фамилию <u>(поле является обязательным)</u></small>    
+        </div>
+        
+        <div class="mb-2">
+            <label for="" class="fw-bold">{{form.first_name.label}}*</label>
+            {{form.first_name}}
+            <small class="form-text text-warning-emphasis">Введите ваше настоящее имя <u>(поле является обязательным)</u></small>    
+        </div>
+
+        <div class="mb-2">
+            <label>{{form.patronymic.label}}</label>
+            {{form.patronymic}}
+            <small class="form-text text-warning-emphasis">Введите ваше настоящее отчество</small>    
+        </div>
+
+        <div class="mb-2">
+            <label class="fw-bold">{{form.username.label}}*</label>
+            {{form.username}}
+            <small class="form-text text-warning-emphasis">Введите логин, который будете использовать для входа в аккаунт <u>(поле является обязательным)</u></small>    
+        </div>
+
+        <div class="mb-2">
+            <label class="fw-bold">{{form.email.label}}*</label>
+            {{form.email}}
+            <small class="form-text text-warning-emphasis">Введите вашу почту <u>(поле является обязательным)</u></small>    
+        </div>
+
+        <!-- <div class="mb-2">
+            <label class="fw-bold">{{form.email.label}}*</label>
+            {{form.email}}
+            <small class="form-text text-warning-emphasis">Введите вашу почту <u>(поле является обязательным)</u></small>    
+        </div> -->
+        
+        <button type="submit" class="btn btn-primary w-100">Зарегестррироваться</button>
+
+    </form>
+{% endblock form %}
+
+
+
+
+

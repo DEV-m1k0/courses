@@ -57,7 +57,9 @@ INSTALLED_APPS = [
     'Statistic',
     'App',
     'Event',
-    'api'
+    'api',
+    'authentication',
+    'registration',
 ]
 
 
@@ -112,6 +114,8 @@ SPECTACULAR_SETTINGS = {
 }
 
 MIDDLEWARE = [
+    'authentication.middlewares.paste_tokens_to_request.GetAccessAndRefreshTokensFromCookies',
+    'authentication.middlewares.set_tokens_to_response.SetAccessAndRefreshTokensMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -119,8 +123,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'authentication.middlewares.paste_tokens_to_request.GetAccessAndRefreshTokensFromCookies',
-    'authentication.middlewares.set_tokens.SetAccessAndRefreshTokensMiddleware',
 ]
 
 ROOT_URLCONF = 'Null.urls'

@@ -23,7 +23,7 @@ class AuthenticationView(generic.FormView):
     """
     form_class = MyAuthForm
     template_name = 'auth.html'
-    success_url = "/login/"
+    success_url = "/"
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         username: str = request.POST['username']
@@ -32,5 +32,5 @@ class AuthenticationView(generic.FormView):
         jwt = JwtTokens(request=request)
         jwt.login(username, password)
 
-        return redirect("/")
+        return super().post(request, *args, **kwargs)
     

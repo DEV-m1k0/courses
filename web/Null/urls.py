@@ -8,7 +8,8 @@ urlpatterns = [
 
 #includes
 urlpatterns += [
-    path('',include('Subject.urls')),
+    path("", include("registration.urls")),
+    path('', include('authentication.urls')),
     path('',include('App.urls')),
     path('',include('Event.urls')),
     path('api/',include('api.urls')),

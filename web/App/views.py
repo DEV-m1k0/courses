@@ -5,9 +5,8 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views import generic
 
-from rest_framework_simplejwt.authentication import JWTAuthentication
 
-from rest_framework.permissions import IsAuthenticated
+# from rest_framework.permissions import IsAuthenticated
 
 from Subject.models import User, UserRole
 from Event.models import Event, Participant
@@ -17,14 +16,8 @@ from .forms import ProfileForm
 
 class MainWindow(generic.TemplateView):
     template_name = "index.html"
+    # permission_classes = [IsAuthenticated]
 
-
-    def get(self, request, *args, **kwargs):
-        # if request.session: return redirect("catalog")
-        access_token = getattr(request, "access_token", None)
-        print(access_token)
-
-        return super().get(request, *args, **kwargs)
 
 # ----------------------------- Catalog of events ---------------------------- #
 
