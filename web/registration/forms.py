@@ -6,7 +6,7 @@ from Subject.models import User
 class RegistrationForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['last_name', 'first_name', 'patronymic', 'email', 'username', 'password', 'password_check', 'agree_to_terms', 'mailing']
+        fields = ['email', 'username', 'password', 'password_check', 'agree_to_terms', 'mailing']
         labels = {
             "username": "Логин",
             "email": "Почта",

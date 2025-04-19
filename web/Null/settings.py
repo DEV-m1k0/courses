@@ -113,6 +113,8 @@ SPECTACULAR_SETTINGS = {
     # OTHER SETTINGS
 }
 
+
+
 MIDDLEWARE = [
     'authentication.middlewares.paste_tokens_to_request.GetAccessAndRefreshTokensFromCookies',
     'authentication.middlewares.set_tokens_to_response.SetAccessAndRefreshTokensMiddleware',

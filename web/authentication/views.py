@@ -22,7 +22,7 @@ class AuthenticationView(generic.FormView):
     Authorization of the user in the system
     """
     form_class = MyAuthForm
-    template_name = 'auth.html'
+    template_name = 'authentication/auth.html'
     success_url = "/"
 
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
