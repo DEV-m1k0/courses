@@ -19,6 +19,23 @@ function changeFocuseOfText (helpText, label) {
     }
 }
 
+// Динамическая проверка валидности введеного логина
+function checkValidationUsername (field) {
+    const reg = /^[a-zA-Z0-9]+$/
+    if (field.value.length > 3 && reg.test(field.value)) {
+        field.classList.remove("is-invalid")
+        if (!field.classList.contains("is-valid")) {
+            field.classList.add("is-valid")
+        }
+        elementUsernameHelp.innerText = ""
+    } else {
+        field.classList.remove("is-valid")
+        if (!field.classList.contains("is-invalid")) {
+            field.classList.add("is-invalid")
+        }
+    }
+}
+
 /* ---------------------------- Валидация логина ---------------------------- */
 
 const prevUsernameHelpText = elementUsernameHelp.innerText;
@@ -33,20 +50,7 @@ fieldUsername.addEventListener('focusout', (e) => {
 
 fieldUsername.addEventListener('input', (e) => {
 
-    // Динамическая проверка валидности введеного логина
-    const reg = /^[a-zA-Z0-9]+$/
-    if (fieldUsername.value.length > 3 && reg.test(fieldUsername.value)) {
-        fieldUsername.classList.remove("is-invalid")
-        if (!fieldUsername.classList.contains("is-valid")) {
-            fieldUsername.classList.add("is-valid")
-        }
-        elementUsernameHelp.innerText = ""
-    } else {
-        fieldUsername.classList.remove("is-valid")
-        if (!fieldUsername.classList.contains("is-invalid")) {
-            fieldUsername.classList.add("is-invalid")
-        }
-    }
+    checkValidationUsername(fieldUsername)
 
     // Изменение вспомогательного текста под полем с логином
     if (fieldUsername.value.length == 0) {

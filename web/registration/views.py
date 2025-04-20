@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 
 from .forms import RegistrationForm
@@ -10,3 +10,8 @@ class RegistrationView(generic.CreateView):
     form_class = RegistrationForm
     model = User
     template_name = 'registration/registration.html'
+    success_url = "/login/"
+
+    def post(self, request, *args, **kwargs):
+        # return super().post(request, *args, **kwargs)
+        return redirect("/login/?registered=True")

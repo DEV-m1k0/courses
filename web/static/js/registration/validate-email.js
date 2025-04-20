@@ -4,7 +4,9 @@ const fieldEmail = document.getElementById('id_email')
 const elementEmailHelp = document.getElementById('email-help')
 const labelEmail = document.getElementById('email-label')
 
-/* --------------------------- Полезные компоненты -------------------------- */
+// alert("")
+
+/* --------------------------- Дополнительные компоненты -------------------------- */
 
 // Функция для изменения цвета текста для поля, которое находится в фокусе
 function changeFocuseOfText (helpText, label) {

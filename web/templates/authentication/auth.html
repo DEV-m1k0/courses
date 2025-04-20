@@ -7,7 +7,44 @@
 {% endblock %}
 
 {% block body %}
+
+<!-- <div class="toast show">
+    <div class="toast-header">
+        
+    </div>
+    <div class="toast-body">
+
+    </div>
+</div> -->
+
+<script type="module">
+    // TODO
+    import { Toast } from "{% static 'bootstrap/js/bootstrap.js' %}"
+
+    $("")
+
+</script>
+
 <div class="form-container container position-relative h-100">
+
+    <button type="button"></button>
+
+    <div class="modal" id="#">
+        <div class="modal-content">
+            <div class="modal-dialog">
+                
+                <div class="modal-header">
+
+                </div>
+
+                <div class="modal-body">
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <form class="bg-transparent border border-warning border-opacity-25 rounded position-absolute p-4 text-warning w-100" method="post">
         {% csrf_token %}
         <h2 class="text-center">Вход в аккаунт</h2>

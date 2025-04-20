@@ -25,6 +25,13 @@ class AuthenticationView(generic.FormView):
     template_name = 'authentication/auth.html'
     success_url = "/"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        registered = self.request.GET.get("registered", False) == 'True'
+        if registered:
+            context['registered'] = True
+        return context
+    
     def post(self, request: HttpRequest, *args: str, **kwargs: Any) -> HttpResponse:
         username: str = request.POST['username']
         password: str = request.POST['password']

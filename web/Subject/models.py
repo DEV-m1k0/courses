@@ -2,7 +2,7 @@ from typing import Iterable
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, AbstractUser
 from django.db import models
-import jwt, datetime
+from django.contrib.auth.hashers import make_password
 from Null.settings import SECRET_KEY
 
 #Роли (Администратор, модератор, пользователь)  
@@ -68,6 +68,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     def __str__(self):
         return self.username
+    
+    def save(self, *args, **kwargs):
+        self.password = make_password(self.password)
+        return super().save(*args, **kwargs)
     
     @property
     def full_name(self):

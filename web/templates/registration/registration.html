@@ -2,6 +2,8 @@
 {% load static %}
 {% load tags %}
 
+{% block title %}Регистрация{% endblock %}
+
 {% block links %}
     <!-- <link rel="stylesheet" href="{% static 'forms/base-form.css' %}"> -->
     <link rel="stylesheet" href="{% static 'css/form/form-size.css' %}">
@@ -28,7 +30,7 @@
         </div>
 
         <div class="mb-2">
-            <label>{{form.password.label}}</label>
+            <label id="password-label">{{form.password.label}}</label>
             {{form.password}}
             <div class="d-flex justify-content-between">
                 <small class="form-text text-warning-emphasis" id="password-help">Введите пароль</small>    
@@ -37,12 +39,13 @@
         </div>
 
         <div class="mb-2">
-            <label>{{form.password_check.label}}</label>
+            <label id="password_check-label">{{form.password_check.label}}</label>
             {{form.password_check}}
             <small class="form-text text-warning-emphasis" id="password_check-help">Повторите введенный пароль</small>    
         </div>
         
-        <button type="submit" class="btn btn-primary w-100 mt-2" disabled>Зарегестррироваться</button>
+        <a href="{% url 'login' %}">kjascjdskcn</a>
+        <button type="submit" class="btn btn-primary w-100 mt-2" id="btnSubmit" disabled>Зарегистрироваться</button>
 
     </form>
 {% endblock form %}
@@ -53,5 +56,6 @@
     <script src="{% static 'js/registration/validate-username.js' %}"></script>
     <script src="{% static 'js/registration/validate-email.js' %}"></script>
     <script src="{% static 'js/registration/validate-password.js' %}"></script>
+    <script src="{% static 'js/registration/submit-form.js' %}"></script>
 {% endblock %}
 
